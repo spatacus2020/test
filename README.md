@@ -6,4 +6,5 @@
  
 拿最后一根牙签的人即为输家 
 
-### https://github.com/spatacus2020/test/blob/main/result.png?raw=true
+
+###  ![avatar](/result.png)
