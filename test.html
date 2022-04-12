@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>将15根牙签
+        分成三行
+        每行自上而下（其实方向不限）分别是3、5、7根
+
+        安排两个玩家，每人可以在一轮内，在任意行拿任意根牙签，但不能跨行
+
+        拿最后一根牙签的人即为输家
+    </title>
+    <script>
+
+        let dataSource = new Array();
+        let userA = 'Tome'
+        let userB = 'Lily'
+
+        function initData() {
+            dataSource = new Array();
+            let array = new Array();
+            for (let i = 1; i <= 15; i++) {
+                if (i == 1 || i == 4 || i == 9) {
+                    array = new Array();
+                } else if (i == 3 || i == 8 || i == 15) {
+                    dataSource.push(array)
+                }
+                array.push(i)
+            }
+        }
+
+        function takeToothpick() {
+            let selectedRow = getRandomIntInclusive(0, dataSource.length - 1);
+
+            if (dataSource[selectedRow]) {
+                while (dataSource[selectedRow].length > 0) {
+                    console.log(`用户${userA}开始拿第${selectedRow + 1}行牙签,此时剩下${dataSource[selectedRow].length}根牙签`);
+                    calculate(selectedRow, userA)
+                    if (dataSource[selectedRow].length > 0) {
+                        console.log(`用户${userB}开始拿第${selectedRow + 1}行牙签,此时剩下${dataSource[selectedRow].length}根牙签`);
+                        calculate(selectedRow, userB)
+                    }
+                }
+            }
+        }
+
+
+        function calculate(selectedRow, user) {
+            let selectedRowData = dataSource[selectedRow];
+            if (selectedRowData.length > 0) {
+                let selectCount = getRandomIntInclusive(1, selectedRowData.length);
+                console.log(`${user}取走${selectCount}根牙签`);
+                dataSource[selectedRow].splice(0, selectCount);
+
+                if (dataSource[selectedRow].length == 0)//最后一个取完列表中的牙签判定为输
+                {
+                    console.log(`${user}输了！`);
+                }
+            }
+        }
+
+
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min; //含最大值，含最小值
+        }
+
+        function gameStart() {
+            initData()
+            takeToothpick()
+        }
+        gameStart()
+    </script>
+</head>
+<body>
+
+</body>
+</html>
